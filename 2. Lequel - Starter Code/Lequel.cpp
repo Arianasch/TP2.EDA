@@ -42,7 +42,7 @@ TrigramProfile buildTrigramProfile(const Text &text)
         std::string currentLine = line;
         wstring unicodeString = converter.from_bytes(currentLine);
 
-        for(int n = 0; (n + 3) < unicodeString.length(); n++) {
+        for(int n = 0; (n + 3) <= unicodeString.length(); n++) {
 
             for(int j = n; j < (n + 3); j++) {
                 trigramKey += unicodeString[j];
@@ -55,7 +55,8 @@ TrigramProfile buildTrigramProfile(const Text &text)
         }
         
     }    
-    printf("got here!");
+
+
     // Tip: converts UTF-8 string to wstring
     //wstring unicodeString = converter.from_bytes(textLine);
 
@@ -73,7 +74,15 @@ TrigramProfile buildTrigramProfile(const Text &text)
  */
 void normalizeTrigramProfile(TrigramProfile &trigramProfile)
 {
-    // Your code goes here...
+    float squareSumation = 0;
+    
+    for(const auto& pair : trigramProfile) {
+        squareSumation += (pair.second * pair.second);
+    }
+
+    for(auto& pair : trigramProfile) {
+        pair.second /= squareSumation;
+    }
 
     return;
 }
@@ -81,15 +90,22 @@ void normalizeTrigramProfile(TrigramProfile &trigramProfile)
 /**
  * @brief Calculates the cosine similarity between two trigram profiles
  *
- * @param textProfile The text trigram profile
- * @param languageProfile The language trigram profile
+ * @param textProfile The text trigram profile (the profile WE created)
+ * @param languageProfile The language trigram profile (the profile we're comparing against)
  * @return float The cosine similarity score
  */
 float getCosineSimilarity(TrigramProfile &textProfile, TrigramProfile &languageProfile)
 {
-    // Your code goes here...
+    float simmilarity = 0;
 
-    return 0; // Fill-in result here
+    for(auto& pair : textProfile) {
+        auto it = languageProfile.find(pair.first);
+        if(it != languageProfile.end()) {
+            simmilarity += ((it->second) * pair.second);
+        }
+    }
+
+    return simmilarity; // Fill-in result here
 }
 
 /**
@@ -101,7 +117,20 @@ float getCosineSimilarity(TrigramProfile &textProfile, TrigramProfile &languageP
  */
 string identifyLanguage(const Text &text, LanguageProfiles &languages)
 {
-    // Your code goes here...
+    TrigramProfile ourTrigram = buildTrigramProfile(text);
+    normalizeTrigramProfile(ourTrigram);
 
-    return ""; // Fill-in result here
+    float maxSimmilarity = 0;
+    std::string detectedLanguage;
+    detectedLanguage.clear();
+
+    for(auto& dictionaries : languages) {
+        float currentSimmilarity = getCosineSimilarity(ourTrigram, dictionaries.trigramProfile);
+        if(currentSimmilarity > maxSimmilarity) {
+            maxSimmilarity = currentSimmilarity;
+            detectedLanguage = dictionaries.languageCode;
+        }
+    }
+
+    return detectedLanguage; // Fill-in result here
 }
