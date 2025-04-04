@@ -1,0 +1,26 @@
+[
+{
+  "directory": "/home/juan/Documents/Trabajos EDA/Lequel GIT/TP2.EDA/build",
+  "command": "/usr/bin/g++ -isystem /home/juan/dev/vcpkg/installed/x64-linux/include -g -std=gnu++11 -fsanitize=address -fsanitize=undefined -o CMakeFiles/main.dir/main.cpp.o -c \"/home/juan/Documents/Trabajos EDA/Lequel GIT/TP2.EDA/2. Lequel - Starter Code/main.cpp\"",
+  "file": "/home/juan/Documents/Trabajos EDA/Lequel GIT/TP2.EDA/2. Lequel - Starter Code/main.cpp",
+  "output": "CMakeFiles/main.dir/main.cpp.o"
+},
+{
+  "directory": "/home/juan/Documents/Trabajos EDA/Lequel GIT/TP2.EDA/build",
+  "command": "/usr/bin/g++ -isystem /home/juan/dev/vcpkg/installed/x64-linux/include -g -std=gnu++11 -fsanitize=address -fsanitize=undefined -o CMakeFiles/main.dir/CSVData.cpp.o -c \"/home/juan/Documents/Trabajos EDA/Lequel GIT/TP2.EDA/2. Lequel - Starter Code/CSVData.cpp\"",
+  "file": "/home/juan/Documents/Trabajos EDA/Lequel GIT/TP2.EDA/2. Lequel - Starter Code/CSVData.cpp",
+  "output": "CMakeFiles/main.dir/CSVData.cpp.o"
+},
+{
+  "directory": "/home/juan/Documents/Trabajos EDA/Lequel GIT/TP2.EDA/build",
+  "command": "/usr/bin/g++ -isystem /home/juan/dev/vcpkg/installed/x64-linux/include -g -std=gnu++11 -fsanitize=address -fsanitize=undefined -o CMakeFiles/main.dir/Text.cpp.o -c \"/home/juan/Documents/Trabajos EDA/Lequel GIT/TP2.EDA/2. Lequel - Starter Code/Text.cpp\"",
+  "file": "/home/juan/Documents/Trabajos EDA/Lequel GIT/TP2.EDA/2. Lequel - Starter Code/Text.cpp",
+  "output": "CMakeFiles/main.dir/Text.cpp.o"
+},
+{
+  "directory": "/home/juan/Documents/Trabajos EDA/Lequel GIT/TP2.EDA/build",
+  "command": "/usr/bin/g++ -isystem /home/juan/dev/vcpkg/installed/x64-linux/include -g -std=gnu++11 -fsanitize=address -fsanitize=undefined -o CMakeFiles/main.dir/Lequel.cpp.o -c \"/home/juan/Documents/Trabajos EDA/Lequel GIT/TP2.EDA/2. Lequel - Starter Code/Lequel.cpp\"",
+  "file": "/home/juan/Documents/Trabajos EDA/Lequel GIT/TP2.EDA/2. Lequel - Starter Code/Lequel.cpp",
+  "output": "CMakeFiles/main.dir/Lequel.cpp.o"
+}
+]

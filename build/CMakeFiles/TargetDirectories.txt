@@ -1,0 +1,3 @@
+/home/juan/Documents/Trabajos EDA/Lequel GIT/TP2.EDA/build/CMakeFiles/main.dir
+/home/juan/Documents/Trabajos EDA/Lequel GIT/TP2.EDA/build/CMakeFiles/edit_cache.dir
+/home/juan/Documents/Trabajos EDA/Lequel GIT/TP2.EDA/build/CMakeFiles/rebuild_cache.dir
