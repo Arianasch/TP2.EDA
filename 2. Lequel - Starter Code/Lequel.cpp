@@ -11,6 +11,7 @@
 #include <codecvt>
 #include <locale>
 #include <iostream>
+#include <stdio.h>
 
 #include "Lequel.h"
 
@@ -39,24 +40,27 @@ TrigramProfile buildTrigramProfile(const Text &text)
 
     for(const auto& line : text) {
 
-        std::string currentLine = line;
-        wstring unicodeString = converter.from_bytes(currentLine);
+        //std::string currentLine = line;
+        wstring unicodeString = converter.from_bytes(line);
 
         for(int n = 0; (n + 3) <= unicodeString.length(); n++) {
 
-            for(int j = n; j < (n + 3); j++) {
-                trigramKey += unicodeString[j];
-            }
-
-        string trigram = converter.to_bytes(trigramKey); 
-        trigramList[trigram]++;
-        trigramKey.clear();
+            trigramKey = unicodeString.substr(n, 3);
+            string trigram = converter.to_bytes(trigramKey); 
+            trigramList[trigram]++;
+            trigramKey.clear();
+            trigram.clear();
 
         }
+
+        unicodeString.clear();
         
     }    
+    /*for (const auto& list : trigramList) {
 
-
+        printf("a la llave %s le corresponde la frecuencia %f\n", list.first, list.second);
+    }*/
+    
     // Tip: converts UTF-8 string to wstring
     //wstring unicodeString = converter.from_bytes(textLine);
 
@@ -75,13 +79,13 @@ TrigramProfile buildTrigramProfile(const Text &text)
 void normalizeTrigramProfile(TrigramProfile &trigramProfile)
 {
     float squareSumation = 0;
-    
+
     for(const auto& pair : trigramProfile) {
         squareSumation += (pair.second * pair.second);
     }
 
     for(auto& pair : trigramProfile) {
-        pair.second /= squareSumation;
+        pair.second /= (sqrt(squareSumation));
     }
 
     return;

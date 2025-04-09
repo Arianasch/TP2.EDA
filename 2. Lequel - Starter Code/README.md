@@ -30,6 +30,7 @@ coreano
 
 Negema wangu binti, mchachefu wa sanati upulike wasiati asa ukanzingatia. Maradhi yamenshika hatta yametimu mwaka sikupata kutamka neno lema kukwambia. Ndoo mbee ujilisi na wino na qaratasi moyoni nina hadithi nimependa kukwambia.
 
+Suajili
 
 
 5. ¿En qué idioma está el siguiente texto?

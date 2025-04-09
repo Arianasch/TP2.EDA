@@ -1625,7 +1625,20 @@
 "西說 ",113
 "應當 ",113
 " 撒瑪",113
-" 晚上",112
+" 晚上",112void normalizeTrigramProfile(TrigramProfile &trigramProfile)
+{
+    float squareSumation = 0;
+    
+    for(const auto& pair : trigramProfile) {
+        squareSumation += (pair.second * pair.second);
+    }
+
+    for(auto pair : trigramProfile) {
+        pair.second /= squareSumation;
+    }
+
+    return;
+}
 "要 照",112
 "著 我",112
 " 大大",112
