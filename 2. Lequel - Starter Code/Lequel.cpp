@@ -11,7 +11,6 @@
 #include <codecvt>
 #include <locale>
 #include <iostream>
-#include <stdio.h>
 
 #include "Lequel.h"
 
@@ -27,7 +26,6 @@ TrigramProfile buildTrigramProfile(const Text &text)
 {
     wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 
-    // Your code goes here...
     for (auto line : text)
     {
         if ((line.length() > 0) &&
@@ -38,16 +36,17 @@ TrigramProfile buildTrigramProfile(const Text &text)
     TrigramProfile trigramList;
     std::wstring trigramKey;
 
-    for(const auto& line : text) {
+    for(const auto& line : text) {  //line points to each element of text: a string
 
-        //std::string currentLine = line;
-        wstring unicodeString = converter.from_bytes(line);
+        wstring unicodeString = converter.from_bytes(line); //converts UTF - 8 string to wstring
 
-        for(int n = 0; (n + 3) <= unicodeString.length(); n++) {
+        for(int n = 0; (n + 3) <= unicodeString.length(); n++) {    //the loop is terminated once the iterator points to
+                                                                    //the penultimate place of the string.More in the ReadMe file.
+                                                                    
 
-            trigramKey = unicodeString.substr(n, 3);
-            string trigram = converter.to_bytes(trigramKey); 
-            trigramList[trigram]++;
+            trigramKey = unicodeString.substr(n, 3);    //the current trigram is selected and saved
+            string trigram = converter.to_bytes(trigramKey); //convert wstring to UTF-8 string
+            trigramList[trigram]++; //each time the trigram is repeated, its value increases. That's how each trigram's frequency is calculated.
             trigramKey.clear();
             trigram.clear();
 
@@ -56,18 +55,6 @@ TrigramProfile buildTrigramProfile(const Text &text)
         unicodeString.clear();
         
     }    
-    /*for (const auto& list : trigramList) {
-
-        printf("a la llave %s le corresponde la frecuencia %f\n", list.first, list.second);
-    }*/
-    
-    // Tip: converts UTF-8 string to wstring
-    //wstring unicodeString = converter.from_bytes(textLine);
-
-    // Tip: convert wstring to UTF-8 string
-    //string trigram = converter.to_bytes(unicodeTrigram);
-
-    //return TrigramProfile(trigramList); // Fill-in result here
     return trigramList;
 }
 
@@ -80,8 +67,8 @@ void normalizeTrigramProfile(TrigramProfile &trigramProfile)
 {
     float squareSumation = 0;
 
-    for(const auto& pair : trigramProfile) {
-        squareSumation += (pair.second * pair.second);
+    for(const auto& pair : trigramProfile) {   //pair points to each trigram with its value(frequency)
+        squareSumation += (pair.second * pair.second);   
     }
 
     for(auto& pair : trigramProfile) {
@@ -102,14 +89,17 @@ float getCosineSimilarity(TrigramProfile &textProfile, TrigramProfile &languageP
 {
     float simmilarity = 0;
 
-    for(auto& pair : textProfile) {
-        auto it = languageProfile.find(pair.first);
-        if(it != languageProfile.end()) {
-            simmilarity += ((it->second) * pair.second);
+    for(auto& pair : textProfile) {  //pair points to each element of textProfile: a trigram and its key
+                                     //we did not opt for pair to point to each element of languageProfile
+                                     //due to efficiency.More in ReadMe file.
+        auto it = languageProfile.find(pair.first); //it points to the element of languageProfile if
+                                                    //there was a match with an element of trigramProfile.
+        if(it != languageProfile.end()) {   //the condition means that a match was found
+            simmilarity += ((it->second) * pair.second);    
         }
     }
 
-    return simmilarity; // Fill-in result here
+    return simmilarity; 
 }
 
 /**
@@ -124,17 +114,18 @@ string identifyLanguage(const Text &text, LanguageProfiles &languages)
     TrigramProfile ourTrigram = buildTrigramProfile(text);
     normalizeTrigramProfile(ourTrigram);
 
-    float maxSimmilarity = 0;
+    float maxSimmilarity = -1;
     std::string detectedLanguage;
     detectedLanguage.clear();
 
-    for(auto& dictionaries : languages) {
+    for(auto& dictionaries : languages) {   //dictionaries points to each Language object
         float currentSimmilarity = getCosineSimilarity(ourTrigram, dictionaries.trigramProfile);
-        if(currentSimmilarity > maxSimmilarity) {
+        if(currentSimmilarity > maxSimmilarity) {   //the maximum value is obtained by comparing just with the last one
+                                                    //this is done for efficiency. More in the ReadMe file.
             maxSimmilarity = currentSimmilarity;
             detectedLanguage = dictionaries.languageCode;
         }
     }
 
-    return detectedLanguage; // Fill-in result here
+    return detectedLanguage; 
 }
